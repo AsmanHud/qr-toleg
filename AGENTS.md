@@ -4,6 +4,7 @@ Read `PRODUCT.md` before making product or UX decisions; it is the reference for
 ## Project structure
 
 - `lib/main.dart` - Application entry point and top-level app configuration.
+- `lib/qr_payload.dart` - Shared encoding and validation for versioned QR Töleg payloads.
 - `lib/screens/` - Full-screen user flows and pages.
 - `lib/widgets/` - Reusable UI components shared across screens.
 - `test/` - Flutter widget and unit tests.

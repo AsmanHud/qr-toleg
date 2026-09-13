@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/mock_qr.dart';
+import '../widgets/personal_qr.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({required this.phoneNumber, super.key});
@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            MockQr(size: qrSize),
+                            PersonalQr(phoneNumber: phoneNumber, size: qrSize),
                             const SizedBox(height: 22),
                             Text(
                               _formattedPhoneNumber,

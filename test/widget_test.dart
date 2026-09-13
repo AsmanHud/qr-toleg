@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/main.dart';
 import 'package:qrtoleg/screens/home_screen.dart';
+import 'package:qrtoleg/widgets/personal_qr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -12,7 +13,7 @@ void main() {
 
     expect(find.text('Enter your phone number'), findsOneWidget);
     expect(find.byKey(const Key('phone-country-code')), findsOneWidget);
-    expect(find.byKey(const Key('mock-qr')), findsNothing);
+    expect(find.byKey(const Key('personal-qr')), findsNothing);
 
     final proceedButton = find.byKey(const Key('proceed-button'));
     expect(tester.widget<FilledButton>(proceedButton).onPressed, isNull);
@@ -30,7 +31,7 @@ void main() {
     await tester.pump();
 
     expect(find.text('Receive balance'), findsOneWidget);
-    expect(find.byKey(const Key('mock-qr')), findsOneWidget);
+    expect(find.byKey(const Key('personal-qr')), findsOneWidget);
     expect(find.text('+993 71 12 34 56'), findsOneWidget);
   });
 
@@ -74,13 +75,16 @@ void main() {
     expect(find.text('Proceed'), findsOneWidget);
   });
 
-  testWidgets('home screen still shows the existing mocked QR', (tester) async {
+  testWidgets('home screen shows a QR containing the personal payload', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       const MaterialApp(home: HomeScreen(phoneNumber: '99365123456')),
     );
 
     expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
-    expect(find.byKey(const Key('mock-qr')), findsOneWidget);
+    final qr = tester.widget<PersonalQr>(find.byType(PersonalQr));
+    expect(qr.payload, 'QRTM1:99365123456');
     expect(find.text('+993 65 12 34 56'), findsOneWidget);
     expect(find.text('Scan to send balance'), findsOneWidget);
   });
