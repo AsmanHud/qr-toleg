@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/phone_entry_screen.dart';
 
-void main() => runApp(const QrTolegApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final preferences = await SharedPreferences.getInstance();
+  runApp(QrTolegApp(preferences: preferences));
+}
 
 class QrTolegApp extends StatefulWidget {
-  const QrTolegApp({super.key});
+  const QrTolegApp({this.preferences, super.key});
+
+  static const phoneNumberPreferenceKey = 'phone_number';
+
+  final SharedPreferences? preferences;
 
   @override
   State<QrTolegApp> createState() => _QrTolegAppState();
@@ -14,6 +23,26 @@ class QrTolegApp extends StatefulWidget {
 
 class _QrTolegAppState extends State<QrTolegApp> {
   String? _phoneNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    final savedPhoneNumber = widget.preferences?.getString(
+      QrTolegApp.phoneNumberPreferenceKey,
+    );
+    if (savedPhoneNumber != null &&
+        RegExp(r'^993\d{8}$').hasMatch(savedPhoneNumber)) {
+      _phoneNumber = savedPhoneNumber;
+    }
+  }
+
+  void _savePhoneNumber(String phoneNumber) {
+    setState(() => _phoneNumber = phoneNumber);
+    widget.preferences?.setString(
+      QrTolegApp.phoneNumberPreferenceKey,
+      phoneNumber,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +75,7 @@ class _QrTolegAppState extends State<QrTolegApp> {
       ),
       home: phoneNumber != null
           ? HomeScreen(phoneNumber: phoneNumber)
-          : PhoneEntryScreen(
-              onProceed: (phoneNumber) {
-                setState(() => _phoneNumber = phoneNumber);
-              },
-            ),
+          : PhoneEntryScreen(onProceed: _savePhoneNumber),
     );
   }
 }
