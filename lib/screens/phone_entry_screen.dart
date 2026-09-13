@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class PhoneEntryScreen extends StatefulWidget {
   const PhoneEntryScreen({required this.onProceed, super.key});
 
-  final VoidCallback onProceed;
+  final ValueChanged<String> onProceed;
 
   @override
   State<PhoneEntryScreen> createState() => _PhoneEntryScreenState();
@@ -14,6 +14,10 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
   final _phoneController = TextEditingController();
 
   bool get _isComplete => _phoneController.text.length == 8;
+
+  void _proceed() {
+    widget.onProceed('993${_phoneController.text}');
+  }
 
   @override
   void dispose() {
@@ -144,7 +148,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                         ),
                         onChanged: (_) => setState(() {}),
                         onSubmitted: (_) {
-                          if (_isComplete) widget.onProceed();
+                          if (_isComplete) _proceed();
                         },
                       ),
                       const SizedBox(height: 12),
@@ -156,7 +160,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                       const SizedBox(height: 32),
                       FilledButton(
                         key: const Key('proceed-button'),
-                        onPressed: _isComplete ? widget.onProceed : null,
+                        onPressed: _isComplete ? _proceed : null,
                         style: FilledButton.styleFrom(
                           minimumSize: const Size.fromHeight(56),
                           textStyle: const TextStyle(

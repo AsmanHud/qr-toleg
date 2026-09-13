@@ -13,12 +13,13 @@ class QrTolegApp extends StatefulWidget {
 }
 
 class _QrTolegAppState extends State<QrTolegApp> {
-  var _hasPhoneNumber = false;
+  String? _phoneNumber;
 
   @override
   Widget build(BuildContext context) {
     const ink = Color(0xFF16211B);
     const green = Color(0xFF16794A);
+    final phoneNumber = _phoneNumber;
 
     return MaterialApp(
       title: 'QR Töleg',
@@ -43,10 +44,12 @@ class _QrTolegAppState extends State<QrTolegApp> {
           bodyMedium: TextStyle(fontSize: 15, height: 1.45),
         ),
       ),
-      home: _hasPhoneNumber
-          ? const HomeScreen()
+      home: phoneNumber != null
+          ? HomeScreen(phoneNumber: phoneNumber)
           : PhoneEntryScreen(
-              onProceed: () => setState(() => _hasPhoneNumber = true),
+              onProceed: (phoneNumber) {
+                setState(() => _phoneNumber = phoneNumber);
+              },
             ),
     );
   }

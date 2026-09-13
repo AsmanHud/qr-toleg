@@ -18,11 +18,11 @@ void main() {
 
     await tester.enterText(
       find.byKey(const Key('phone-number-field')),
-      'ab65123456789',
+      'ab71123456789',
     );
     await tester.pump();
 
-    expect(find.text('65123456'), findsOneWidget);
+    expect(find.text('71123456'), findsOneWidget);
     expect(tester.widget<FilledButton>(proceedButton).onPressed, isNotNull);
 
     await tester.tap(proceedButton);
@@ -30,7 +30,7 @@ void main() {
 
     expect(find.text('Receive balance'), findsOneWidget);
     expect(find.byKey(const Key('mock-qr')), findsOneWidget);
-    expect(find.text('+993 65 12 34 56'), findsOneWidget);
+    expect(find.text('+993 71 12 34 56'), findsOneWidget);
   });
 
   testWidgets('country code remains visible after submitting an empty field', (
@@ -74,7 +74,9 @@ void main() {
   });
 
   testWidgets('home screen still shows the existing mocked QR', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: HomeScreen()));
+    await tester.pumpWidget(
+      const MaterialApp(home: HomeScreen(phoneNumber: '99365123456')),
+    );
 
     expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
     expect(find.byKey(const Key('mock-qr')), findsOneWidget);

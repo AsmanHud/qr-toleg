@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import '../widgets/mock_qr.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({required this.phoneNumber, super.key});
 
-  static const _phoneNumber = '+993 65 12 34 56';
+  final String phoneNumber;
+
+  String get _formattedPhoneNumber =>
+      '+${phoneNumber.substring(0, 3)} '
+      '${phoneNumber.substring(3, 5)} '
+      '${phoneNumber.substring(5, 7)} '
+      '${phoneNumber.substring(7, 9)} '
+      '${phoneNumber.substring(9, 11)}';
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                             MockQr(size: qrSize),
                             const SizedBox(height: 22),
                             Text(
-                              _phoneNumber,
+                              _formattedPhoneNumber,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 6),
