@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/phone_entry_screen.dart';
+import 'screens/settings_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,22 @@ class _QrTolegAppState extends State<QrTolegApp> {
     );
   }
 
+  Future<void> _resetPhoneNumber() async {
+    await widget.preferences?.remove(QrTolegApp.phoneNumberPreferenceKey);
+    if (mounted) {
+      setState(() => _phoneNumber = null);
+    }
+  }
+
+  void _openSettings(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) =>
+            SettingsScreen(onResetPhoneNumber: _resetPhoneNumber),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const ink = Color(0xFF16211B);
@@ -74,7 +91,7 @@ class _QrTolegAppState extends State<QrTolegApp> {
         ),
       ),
       home: phoneNumber != null
-          ? HomeScreen(phoneNumber: phoneNumber)
+          ? HomeScreen(phoneNumber: phoneNumber, onOpenSettings: _openSettings)
           : PhoneEntryScreen(onProceed: _savePhoneNumber),
     );
   }

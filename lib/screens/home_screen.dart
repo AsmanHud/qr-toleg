@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../widgets/personal_qr.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({required this.phoneNumber, super.key});
+  const HomeScreen({
+    required this.phoneNumber,
+    required this.onOpenSettings,
+    super.key,
+  });
 
   final String phoneNumber;
+  final ValueChanged<BuildContext> onOpenSettings;
 
   String get _formattedPhoneNumber =>
       '+${phoneNumber.substring(0, 3)} '
@@ -29,7 +34,7 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => onOpenSettings(context),
             tooltip: 'Settings',
             icon: const Icon(Icons.settings_outlined),
           ),
