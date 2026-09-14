@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'transfer_confirmation_screen.dart';
+
 class AmountEntryScreen extends StatefulWidget {
   const AmountEntryScreen({required this.recipientPhoneNumber, super.key});
 
@@ -19,6 +21,20 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
     final amount = _amount;
     return _amountController.text.isNotEmpty &&
         (amount == null || amount < 1 || amount > 50);
+  }
+
+  void _proceed() {
+    final amount = _amount;
+    if (amount == null || amount < 1 || amount > 50) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) => TransferConfirmationScreen(
+          recipientPhoneNumber: widget.recipientPhoneNumber,
+          amount: amount,
+        ),
+      ),
+    );
   }
 
   String get _formattedRecipient {
@@ -137,12 +153,21 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                           ),
                         ),
                         onChanged: (_) => setState(() {}),
+                        onSubmitted: (_) => _proceed(),
                       ),
                       const SizedBox(height: 12),
                       Text(
                         'Enter a whole-number amount from 1 to 50 TMT.',
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
+                      ),
+                      const SizedBox(height: 28),
+                      FilledButton(
+                        key: const Key('amount-proceed-button'),
+                        onPressed: _hasInvalidAmount || _amount == null
+                            ? null
+                            : _proceed,
+                        child: const Text('Proceed'),
                       ),
                     ],
                   ),

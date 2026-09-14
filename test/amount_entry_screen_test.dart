@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/screens/amount_entry_screen.dart';
+import 'package:qrtoleg/screens/transfer_confirmation_screen.dart';
 
 void main() {
   testWidgets('shows the recipient and validates the transfer range', (
@@ -45,5 +46,30 @@ void main() {
 
     expect(find.byKey(const Key('amount-field')), findsOneWidget);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('valid amount proceeds to transfer confirmation', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AmountEntryScreen(recipientPhoneNumber: '99365123456'),
+      ),
+    );
+
+    final proceedButton = find.byKey(const Key('amount-proceed-button'));
+    expect(tester.widget<FilledButton>(proceedButton).onPressed, isNull);
+
+    await tester.enterText(find.byKey(const Key('amount-field')), '25');
+    await tester.pump();
+    expect(tester.widget<FilledButton>(proceedButton).onPressed, isNotNull);
+
+    await tester.tap(proceedButton);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TransferConfirmationScreen), findsOneWidget);
+    final confirmation = tester.widget<TransferConfirmationScreen>(
+      find.byType(TransferConfirmationScreen),
+    );
+    expect(confirmation.recipientPhoneNumber, '99365123456');
+    expect(confirmation.amount, 25);
   });
 }
