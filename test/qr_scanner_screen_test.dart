@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:qrtoleg/screens/amount_entry_screen.dart';
 import 'package:qrtoleg/screens/qr_scanner_screen.dart';
 
 void main() {
@@ -45,7 +46,9 @@ void main() {
     expect(permissions.openSettingsCount, 1);
   });
 
-  testWidgets('valid scans are intentionally inert', (tester) async {
+  testWidgets('valid scans open amount entry for the recipient', (
+    tester,
+  ) async {
     final permissions = _FakeCameraPermissionGateway([CameraAccess.granted]);
     ValueChanged<String>? onCode;
 
@@ -61,10 +64,14 @@ void main() {
     await tester.pump();
 
     onCode!('QRTM1:99365123456');
-    await tester.pump();
+    await tester.pumpAndSettle();
 
-    expect(find.byType(QrScannerScreen), findsOneWidget);
-    expect(find.text('Place the QR code inside the frame'), findsOneWidget);
+    expect(find.byType(AmountEntryScreen), findsOneWidget);
+    expect(find.text('Enter the amount'), findsOneWidget);
+    expect(
+      find.text('You are sending balance to +993 65 12 34 56.'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('invalid scans show feedback and fit on a narrow screen', (

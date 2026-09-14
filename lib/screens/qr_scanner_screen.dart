@@ -3,6 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../qr_payload.dart';
+import 'amount_entry_screen.dart';
 
 enum CameraAccess { checking, granted, denied, permanentlyDenied, unavailable }
 
@@ -59,6 +60,7 @@ class _QrScannerScreenState extends State<QrScannerScreen>
   late final MobileScannerController _controller;
   CameraAccess _access = CameraAccess.checking;
   bool _openingSettings = false;
+  bool _isOpeningAmountEntry = false;
   String? _message;
 
   @override
@@ -106,8 +108,21 @@ class _QrScannerScreenState extends State<QrScannerScreen>
   }
 
   void _handleCode(String rawValue) {
-    if (decodeQrPayload(rawValue) != null ||
-        _message == "This isn't a QR Töleg code.") {
+    final recipientPhoneNumber = decodeQrPayload(rawValue);
+    if (recipientPhoneNumber != null) {
+      if (_isOpeningAmountEntry) return;
+      _isOpeningAmountEntry = true;
+      Navigator.of(context)
+          .push(
+            MaterialPageRoute<void>(
+              builder: (context) =>
+                  AmountEntryScreen(recipientPhoneNumber: recipientPhoneNumber),
+            ),
+          )
+          .whenComplete(() => _isOpeningAmountEntry = false);
+      return;
+    }
+    if (_message == "This isn't a QR Töleg code.") {
       return;
     }
     setState(() => _message = "This isn't a QR Töleg code.");
