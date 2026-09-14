@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+typedef MessageLauncher = Future<bool> Function(Uri uri);
 
 class TransferConfirmationScreen extends StatelessWidget {
   const TransferConfirmationScreen({
     required this.recipientPhoneNumber,
     required this.amount,
+    this.launchMessage = _launchMessage,
     super.key,
   });
 
@@ -11,6 +15,22 @@ class TransferConfirmationScreen extends StatelessWidget {
 
   final String recipientPhoneNumber;
   final int amount;
+  final MessageLauncher launchMessage;
+
+  static Future<bool> _launchMessage(Uri uri) =>
+      launchUrl(uri, mode: LaunchMode.externalApplication);
+
+  Future<void> _openMessages(BuildContext context) async {
+    final body = Uri.encodeComponent('$recipientPhoneNumber $amount');
+    final uri = Uri.parse('sms:0804?body=$body');
+
+    final launched = await launchMessage(uri);
+    if (!launched && context.mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Could not open Messages.')));
+    }
+  }
 
   String get _formattedRecipient {
     final number = recipientPhoneNumber;
@@ -95,7 +115,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                       const SizedBox(height: 32),
                       FilledButton.icon(
                         key: const Key('open-messages-button'),
-                        onPressed: () {},
+                        onPressed: () => _openMessages(context),
                         icon: const Icon(Icons.message_outlined),
                         label: const Text('Open Messages'),
                       ),

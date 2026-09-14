@@ -3,11 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/screens/transfer_confirmation_screen.dart';
 
 void main() {
-  Widget buildScreen({int amount = 25}) {
+  Widget buildScreen({int amount = 25, MessageLauncher? launchMessage}) {
     return MaterialApp(
       home: TransferConfirmationScreen(
         recipientPhoneNumber: '99365123456',
         amount: amount,
+        launchMessage: launchMessage ?? (_) async => true,
       ),
     );
   }
@@ -34,8 +35,18 @@ void main() {
     expect(find.text('99365123456 50'), findsOneWidget);
   });
 
-  testWidgets('Open Messages remains on confirmation for now', (tester) async {
-    await tester.pumpWidget(buildScreen());
+  testWidgets('Open Messages launches a prefilled SMS to TMcell', (
+    tester,
+  ) async {
+    Uri? launchedUri;
+    await tester.pumpWidget(
+      buildScreen(
+        launchMessage: (uri) async {
+          launchedUri = uri;
+          return true;
+        },
+      ),
+    );
 
     final button = find.byKey(const Key('open-messages-button'));
     expect(tester.widget<FilledButton>(button).onPressed, isNotNull);
@@ -43,7 +54,19 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    expect(find.byType(TransferConfirmationScreen), findsOneWidget);
+    expect(launchedUri?.scheme, 'sms');
+    expect(launchedUri?.path, '0804');
+    expect(launchedUri?.queryParameters['body'], '99365123456 25');
+    expect(launchedUri.toString(), 'sms:0804?body=99365123456%2025');
+  });
+
+  testWidgets('shows an error when Messages cannot be opened', (tester) async {
+    await tester.pumpWidget(buildScreen(launchMessage: (_) async => false));
+
+    await tester.tap(find.byKey(const Key('open-messages-button')));
+    await tester.pump();
+
+    expect(find.text('Could not open Messages.'), findsOneWidget);
   });
 
   testWidgets('fits on a narrow phone without layout exceptions', (
