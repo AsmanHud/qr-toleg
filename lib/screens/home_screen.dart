@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/personal_qr.dart';
+import 'qr_scanner_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -99,7 +100,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 28),
                       FilledButton.icon(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) => const QrScannerScreen(),
+                          ),
+                        ),
                         icon: const Icon(Icons.qr_code_scanner_rounded),
                         label: const Text('Scan to send balance'),
                         style: FilledButton.styleFrom(

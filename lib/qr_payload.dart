@@ -12,3 +12,12 @@ String encodeQrPayload(String phoneNumber) {
 
   return '$_qrPayloadPrefix$phoneNumber';
 }
+
+String? decodeQrPayload(String payload) {
+  if (!payload.startsWith(_qrPayloadPrefix)) {
+    return null;
+  }
+
+  final phoneNumber = payload.substring(_qrPayloadPrefix.length);
+  return _phoneNumberPattern.hasMatch(phoneNumber) ? phoneNumber : null;
+}

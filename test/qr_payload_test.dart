@@ -11,4 +11,16 @@ void main() {
       expect(() => encodeQrPayload('65123456'), throwsA(isA<ArgumentError>()));
     });
   });
+
+  group('decodeQrPayload', () {
+    test('extracts a phone number from a valid payload', () {
+      expect(decodeQrPayload('QRTM1:99365123456'), '99365123456');
+    });
+
+    test('rejects other QR contents and malformed phone numbers', () {
+      expect(decodeQrPayload('https://example.com'), isNull);
+      expect(decodeQrPayload('QRTM1:65123456'), isNull);
+      expect(decodeQrPayload('QRTM1:99365123456extra'), isNull);
+    });
+  });
 }
