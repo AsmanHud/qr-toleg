@@ -166,6 +166,15 @@ class AppLocalizationsTk extends AppLocalizations {
   String get settingsTitle => 'Sazlamalar';
 
   @override
+  String get preferencesSectionTitle => 'Saýlamalar';
+
+  @override
+  String get deviceDataSectionTitle => 'Enjamdaky maglumatlar';
+
+  @override
+  String get informationSectionTitle => 'Maglumat';
+
+  @override
   String get languageTitle => 'Dil';
 
   @override
@@ -189,6 +198,58 @@ class AppLocalizationsTk extends AppLocalizations {
   @override
   String get resetPhoneNumberWarning =>
       'Saklanan belgiňiz aýrylar we başlangyç ekrana dolanarsyňyz.';
+
+  @override
+  String get aboutTitle => 'QR Töleg barada';
+
+  @override
+  String get aboutDescription => 'Programma, gizlinlik we lisenziýalar barada';
+
+  @override
+  String get aboutPurpose =>
+      'QR Töleg QR-kodlaryň kömegi bilen TMcell balans geçirimini taýýarlamaga kömek edýär.';
+
+  @override
+  String aboutVersionLabel(String version, String buildNumber) {
+    return 'Wersiýa $version ($buildNumber)';
+  }
+
+  @override
+  String get aboutHowItWorksTitle => 'Geçirim siziň gözegçiligiňizde';
+
+  @override
+  String get aboutHowItWorksBody =>
+      'QR Töleg geçirim üçin SMS-i taýýarlaýar. Siz ony barlap, SMS programmaňyzda «Iber» düwmesine basýarsyňyz.';
+
+  @override
+  String get aboutPrivacyTitle => 'Gizlinlik';
+
+  @override
+  String get aboutPrivacyBody =>
+      'Telefon belgiňiz diňe şu enjamda saklanýar. QR Töleg-de ulanyjy hasaby, serwer ulgamy, analitika ýa-da bulut ammary ýok.';
+
+  @override
+  String get aboutIndependenceTitle => 'Garaşsyz programma';
+
+  @override
+  String get aboutIndependenceBody =>
+      'QR Töleg TMcell-iň resmi programmasy däldir we TMcell bilen hiç hili baglanyşygy ýokdur.';
+
+  @override
+  String get aboutCarrierTitle => 'Operatoryň şertleri';
+
+  @override
+  String get aboutCarrierBody =>
+      'Geçirimiň elýeterliligi, hyzmat tölegleri, çäkleri we amala aşyrylyşy TMcell tarapyndan kesgitlenýär.';
+
+  @override
+  String get sourceCodeTitle => 'Çeşme kody';
+
+  @override
+  String get sourceCodeDescription => 'QR Tölegiň çeşme koduny GitHub-da görüň';
+
+  @override
+  String get openSourceLicensesTitle => 'Açyk çeşme lisenziýalary';
 
   @override
   String get cancelAction => 'Ýatyr';

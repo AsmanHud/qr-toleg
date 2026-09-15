@@ -165,6 +165,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
+  String get preferencesSectionTitle => 'Preferences';
+
+  @override
+  String get deviceDataSectionTitle => 'Device data';
+
+  @override
+  String get informationSectionTitle => 'Information';
+
+  @override
   String get languageTitle => 'Language';
 
   @override
@@ -189,6 +198,58 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resetPhoneNumberWarning =>
       'Your saved number will be removed and you will return to the welcome screen.';
+
+  @override
+  String get aboutTitle => 'About QR Töleg';
+
+  @override
+  String get aboutDescription => 'App details, privacy, and licenses';
+
+  @override
+  String get aboutPurpose =>
+      'QR Töleg helps you prepare TMcell balance transfers using QR codes.';
+
+  @override
+  String aboutVersionLabel(String version, String buildNumber) {
+    return 'Version $version ($buildNumber)';
+  }
+
+  @override
+  String get aboutHowItWorksTitle => 'You stay in control';
+
+  @override
+  String get aboutHowItWorksBody =>
+      'QR Töleg prepares the transfer SMS. You review it and press Send in your messaging app.';
+
+  @override
+  String get aboutPrivacyTitle => 'Private by design';
+
+  @override
+  String get aboutPrivacyBody =>
+      'Your phone number stays on this device. QR Töleg has no account, backend, analytics, or cloud storage.';
+
+  @override
+  String get aboutIndependenceTitle => 'Independent app';
+
+  @override
+  String get aboutIndependenceBody =>
+      'QR Töleg is not an official TMcell app and is not affiliated with TMcell.';
+
+  @override
+  String get aboutCarrierTitle => 'Carrier terms';
+
+  @override
+  String get aboutCarrierBody =>
+      'Transfer availability, fees, limits, and processing are controlled by TMcell.';
+
+  @override
+  String get sourceCodeTitle => 'Source code';
+
+  @override
+  String get sourceCodeDescription => 'View QR Töleg on GitHub';
+
+  @override
+  String get openSourceLicensesTitle => 'Open-source licenses';
 
   @override
   String get cancelAction => 'Cancel';

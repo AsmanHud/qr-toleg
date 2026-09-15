@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
+import 'about_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
@@ -95,7 +96,9 @@ class SettingsScreen extends StatelessWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 520),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    _SectionTitle(l10n.preferencesSectionTitle),
                     ListTile(
                       key: const Key('language-setting'),
                       contentPadding: const EdgeInsets.symmetric(
@@ -117,7 +120,8 @@ class SettingsScreen extends StatelessWidget {
                       trailing: const Icon(Icons.chevron_right_rounded),
                       onTap: () => _selectLanguage(context),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 24),
+                    _SectionTitle(l10n.deviceDataSectionTitle),
                     ListTile(
                       key: const Key('reset-phone-number'),
                       contentPadding: const EdgeInsets.symmetric(
@@ -140,12 +144,53 @@ class SettingsScreen extends StatelessWidget {
                       subtitle: Text(l10n.resetPhoneNumberDescription),
                       onTap: () => _confirmReset(context),
                     ),
+                    const SizedBox(height: 24),
+                    _SectionTitle(l10n.informationSectionTitle),
+                    ListTile(
+                      key: const Key('about-setting'),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      tileColor: colors.surface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Color(0xFFDDE1DA)),
+                      ),
+                      leading: const Icon(Icons.info_outline_rounded),
+                      title: Text(l10n.aboutTitle),
+                      subtitle: Text(l10n.aboutDescription),
+                      trailing: const Icon(Icons.chevron_right_rounded),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (context) => const AboutScreen(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.labelLarge
+            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
   }

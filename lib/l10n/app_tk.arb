@@ -60,6 +60,9 @@
   "turnOffFlashlightTooltip": "Fonary öçür",
   "turnOnFlashlightTooltip": "Fonary ýak",
   "settingsTitle": "Sazlamalar",
+  "preferencesSectionTitle": "Saýlamalar",
+  "deviceDataSectionTitle": "Enjamdaky maglumatlar",
+  "informationSectionTitle": "Maglumat",
   "languageTitle": "Dil",
   "selectLanguageTitle": "Dili saýlaň",
   "turkmenLanguage": "Türkmençe",
@@ -68,6 +71,28 @@
   "resetPhoneNumberDescription": "Bu enjamda saklanan belgini aýyr",
   "resetPhoneNumberQuestion": "Telefon belgisi täzeden bellensinmi?",
   "resetPhoneNumberWarning": "Saklanan belgiňiz aýrylar we başlangyç ekrana dolanarsyňyz.",
+  "aboutTitle": "QR Töleg barada",
+  "aboutDescription": "Programma, gizlinlik we lisenziýalar barada",
+  "aboutPurpose": "QR Töleg QR-kodlaryň kömegi bilen TMcell balans geçirimini taýýarlamaga kömek edýär.",
+  "aboutVersionLabel": "Wersiýa {version} ({buildNumber})",
+  "@aboutVersionLabel": {
+    "description": "Application version and build number.",
+    "placeholders": {
+      "version": { "type": "String", "example": "1.0.0" },
+      "buildNumber": { "type": "String", "example": "1" }
+    }
+  },
+  "aboutHowItWorksTitle": "Geçirim siziň gözegçiligiňizde",
+  "aboutHowItWorksBody": "QR Töleg geçirim üçin SMS-i taýýarlaýar. Siz ony barlap, SMS programmaňyzda «Iber» düwmesine basýarsyňyz.",
+  "aboutPrivacyTitle": "Gizlinlik",
+  "aboutPrivacyBody": "Telefon belgiňiz diňe şu enjamda saklanýar. QR Töleg-de ulanyjy hasaby, serwer ulgamy, analitika ýa-da bulut ammary ýok.",
+  "aboutIndependenceTitle": "Garaşsyz programma",
+  "aboutIndependenceBody": "QR Töleg TMcell-iň resmi programmasy däldir we TMcell bilen hiç hili baglanyşygy ýokdur.",
+  "aboutCarrierTitle": "Operatoryň şertleri",
+  "aboutCarrierBody": "Geçirimiň elýeterliligi, hyzmat tölegleri, çäkleri we amala aşyrylyşy TMcell tarapyndan kesgitlenýär.",
+  "sourceCodeTitle": "Çeşme kody",
+  "sourceCodeDescription": "QR Tölegiň çeşme koduny GitHub-da görüň",
+  "openSourceLicensesTitle": "Açyk çeşme lisenziýalary",
   "cancelAction": "Ýatyr",
   "resetAction": "Täzeden belle"
 }

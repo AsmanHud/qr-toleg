@@ -60,6 +60,9 @@
   "turnOffFlashlightTooltip": "Turn off flashlight",
   "turnOnFlashlightTooltip": "Turn on flashlight",
   "settingsTitle": "Settings",
+  "preferencesSectionTitle": "Preferences",
+  "deviceDataSectionTitle": "Device data",
+  "informationSectionTitle": "Information",
   "languageTitle": "Language",
   "selectLanguageTitle": "Select language",
   "turkmenLanguage": "Türkmençe",
@@ -68,6 +71,28 @@
   "resetPhoneNumberDescription": "Remove the number saved on this device",
   "resetPhoneNumberQuestion": "Reset phone number?",
   "resetPhoneNumberWarning": "Your saved number will be removed and you will return to the welcome screen.",
+  "aboutTitle": "About QR Töleg",
+  "aboutDescription": "App details, privacy, and licenses",
+  "aboutPurpose": "QR Töleg helps you prepare TMcell balance transfers using QR codes.",
+  "aboutVersionLabel": "Version {version} ({buildNumber})",
+  "@aboutVersionLabel": {
+    "description": "Application version and build number.",
+    "placeholders": {
+      "version": { "type": "String", "example": "1.0.0" },
+      "buildNumber": { "type": "String", "example": "1" }
+    }
+  },
+  "aboutHowItWorksTitle": "You stay in control",
+  "aboutHowItWorksBody": "QR Töleg prepares the transfer SMS. You review it and press Send in your messaging app.",
+  "aboutPrivacyTitle": "Private by design",
+  "aboutPrivacyBody": "Your phone number stays on this device. QR Töleg has no account, backend, analytics, or cloud storage.",
+  "aboutIndependenceTitle": "Independent app",
+  "aboutIndependenceBody": "QR Töleg is not an official TMcell app and is not affiliated with TMcell.",
+  "aboutCarrierTitle": "Carrier terms",
+  "aboutCarrierBody": "Transfer availability, fees, limits, and processing are controlled by TMcell.",
+  "sourceCodeTitle": "Source code",
+  "sourceCodeDescription": "View QR Töleg on GitHub",
+  "openSourceLicensesTitle": "Open-source licenses",
   "cancelAction": "Cancel",
   "resetAction": "Reset"
 }

@@ -386,6 +386,24 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTitle;
 
+  /// No description provided for @preferencesSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferencesSectionTitle;
+
+  /// No description provided for @deviceDataSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Device data'**
+  String get deviceDataSectionTitle;
+
+  /// No description provided for @informationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get informationSectionTitle;
+
   /// No description provided for @languageTitle.
   ///
   /// In en, this message translates to:
@@ -433,6 +451,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your saved number will be removed and you will return to the welcome screen.'**
   String get resetPhoneNumberWarning;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About QR Töleg'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'App details, privacy, and licenses'**
+  String get aboutDescription;
+
+  /// No description provided for @aboutPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Töleg helps you prepare TMcell balance transfers using QR codes.'**
+  String get aboutPurpose;
+
+  /// Application version and build number.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} ({buildNumber})'**
+  String aboutVersionLabel(String version, String buildNumber);
+
+  /// No description provided for @aboutHowItWorksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You stay in control'**
+  String get aboutHowItWorksTitle;
+
+  /// No description provided for @aboutHowItWorksBody.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Töleg prepares the transfer SMS. You review it and press Send in your messaging app.'**
+  String get aboutHowItWorksBody;
+
+  /// No description provided for @aboutPrivacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private by design'**
+  String get aboutPrivacyTitle;
+
+  /// No description provided for @aboutPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone number stays on this device. QR Töleg has no account, backend, analytics, or cloud storage.'**
+  String get aboutPrivacyBody;
+
+  /// No description provided for @aboutIndependenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Independent app'**
+  String get aboutIndependenceTitle;
+
+  /// No description provided for @aboutIndependenceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Töleg is not an official TMcell app and is not affiliated with TMcell.'**
+  String get aboutIndependenceBody;
+
+  /// No description provided for @aboutCarrierTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Carrier terms'**
+  String get aboutCarrierTitle;
+
+  /// No description provided for @aboutCarrierBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer availability, fees, limits, and processing are controlled by TMcell.'**
+  String get aboutCarrierBody;
+
+  /// No description provided for @sourceCodeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Source code'**
+  String get sourceCodeTitle;
+
+  /// No description provided for @sourceCodeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'View QR Töleg on GitHub'**
+  String get sourceCodeDescription;
+
+  /// No description provided for @openSourceLicensesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licenses'**
+  String get openSourceLicensesTitle;
 
   /// No description provided for @cancelAction.
   ///
