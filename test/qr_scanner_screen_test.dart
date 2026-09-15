@@ -20,10 +20,10 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('Camera access is needed'), findsOneWidget);
-    expect(find.text('Try again'), findsOneWidget);
+    expect(find.text(enL10n.cameraAccessNeededTitle), findsOneWidget);
+    expect(find.text(enL10n.tryAgainAction), findsOneWidget);
 
-    await tester.tap(find.text('Try again'));
+    await tester.tap(find.text(enL10n.tryAgainAction));
     await tester.pump();
     await tester.pump();
 
@@ -44,8 +44,8 @@ void main() {
     await tester.pumpWidget(_app(permissions));
     await tester.pump();
 
-    expect(find.text('Allow camera access in Settings'), findsOneWidget);
-    await tester.tap(find.text('Open settings'));
+    expect(find.text(enL10n.allowCameraInSettingsTitle), findsOneWidget);
+    await tester.tap(find.text(enL10n.openSettingsAction));
     await tester.pump();
 
     expect(permissions.openSettingsCount, 1);
@@ -72,9 +72,9 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(AmountEntryScreen), findsOneWidget);
-    expect(find.text('Enter the amount'), findsOneWidget);
+    expect(find.text(enL10n.enterAmountTitle), findsOneWidget);
     expect(
-      find.text('You are sending balance to +993 65 12 34 56.'),
+      find.text(enL10n.sendingBalanceTo('+993 65 12 34 56')),
       findsOneWidget,
     );
   });
@@ -103,7 +103,7 @@ void main() {
     onCode!('not-a-qr-toleg-code');
     await tester.pump();
 
-    expect(find.text("This isn't a QR Töleg code."), findsOneWidget);
+    expect(find.text(enL10n.invalidQrCodeMessage), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

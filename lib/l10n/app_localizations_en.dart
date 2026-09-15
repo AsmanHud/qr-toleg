@@ -161,6 +161,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
+  String get languageTitle => 'Language';
+
+  @override
+  String get selectLanguageTitle => 'Select language';
+
+  @override
+  String get turkmenLanguage => 'Türkmençe';
+
+  @override
+  String get englishLanguage => 'English';
+
+  @override
   String get resetPhoneNumberTitle => 'Reset phone number';
 
   @override

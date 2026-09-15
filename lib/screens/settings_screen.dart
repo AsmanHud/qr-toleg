@@ -3,9 +3,44 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({required this.onResetPhoneNumber, super.key});
+  const SettingsScreen({
+    required this.languageCode,
+    required this.onLanguageChanged,
+    required this.onResetPhoneNumber,
+    super.key,
+  });
 
+  final String languageCode;
+  final Future<void> Function(String languageCode) onLanguageChanged;
   final Future<void> Function() onResetPhoneNumber;
+
+  Future<void> _selectLanguage(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
+    final selectedLanguageCode = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => SimpleDialog(
+        title: Text(l10n.selectLanguageTitle),
+        children: [
+          _LanguageOption(
+            key: const Key('language-option-tk'),
+            languageCode: 'tk',
+            label: l10n.turkmenLanguage,
+            selected: languageCode == 'tk',
+          ),
+          _LanguageOption(
+            key: const Key('language-option-en'),
+            languageCode: 'en',
+            label: l10n.englishLanguage,
+            selected: languageCode == 'en',
+          ),
+        ],
+      ),
+    );
+
+    if (selectedLanguageCode != null) {
+      await onLanguageChanged(selectedLanguageCode);
+    }
+  }
 
   Future<void> _confirmReset(BuildContext context) async {
     final l10n = AppLocalizations.of(context);
@@ -59,32 +94,84 @@ class SettingsScreen extends StatelessWidget {
             Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 520),
-                child: ListTile(
-                  key: const Key('reset-phone-number'),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  tileColor: colors.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: const BorderSide(color: Color(0xFFDDE1DA)),
-                  ),
-                  leading: Icon(Icons.delete_outline, color: colors.error),
-                  title: Text(
-                    l10n.resetPhoneNumberTitle,
-                    style: TextStyle(
-                      color: colors.error,
-                      fontWeight: FontWeight.w600,
+                child: Column(
+                  children: [
+                    ListTile(
+                      key: const Key('language-setting'),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      tileColor: colors.surface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Color(0xFFDDE1DA)),
+                      ),
+                      leading: const Icon(Icons.language_rounded),
+                      title: Text(l10n.languageTitle),
+                      subtitle: Text(
+                        languageCode == 'tk'
+                            ? l10n.turkmenLanguage
+                            : l10n.englishLanguage,
+                      ),
+                      trailing: const Icon(Icons.chevron_right_rounded),
+                      onTap: () => _selectLanguage(context),
                     ),
-                  ),
-                  subtitle: Text(l10n.resetPhoneNumberDescription),
-                  onTap: () => _confirmReset(context),
+                    const SizedBox(height: 12),
+                    ListTile(
+                      key: const Key('reset-phone-number'),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      tileColor: colors.surface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Color(0xFFDDE1DA)),
+                      ),
+                      leading: Icon(Icons.delete_outline, color: colors.error),
+                      title: Text(
+                        l10n.resetPhoneNumberTitle,
+                        style: TextStyle(
+                          color: colors.error,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      subtitle: Text(l10n.resetPhoneNumberDescription),
+                      onTap: () => _confirmReset(context),
+                    ),
+                  ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LanguageOption extends StatelessWidget {
+  const _LanguageOption({
+    required this.languageCode,
+    required this.label,
+    required this.selected,
+    super.key,
+  });
+
+  final String languageCode;
+  final String label;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialogOption(
+      onPressed: () => Navigator.of(context).pop(languageCode),
+      child: Row(
+        children: [
+          Expanded(child: Text(label)),
+          if (selected) const Icon(Icons.check_rounded),
+        ],
       ),
     );
   }

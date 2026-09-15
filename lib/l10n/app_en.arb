@@ -59,6 +59,10 @@
   "turnOffFlashlightTooltip": "Turn off flashlight",
   "turnOnFlashlightTooltip": "Turn on flashlight",
   "settingsTitle": "Settings",
+  "languageTitle": "Language",
+  "selectLanguageTitle": "Select language",
+  "turkmenLanguage": "Türkmençe",
+  "englishLanguage": "English",
   "resetPhoneNumberTitle": "Reset phone number",
   "resetPhoneNumberDescription": "Remove the number saved on this device",
   "resetPhoneNumberQuestion": "Reset phone number?",
@@ -66,4 +70,3 @@
   "cancelAction": "Cancel",
   "resetAction": "Reset"
 }
-

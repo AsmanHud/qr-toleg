@@ -18,19 +18,13 @@ void main() {
   testWidgets('shows the complete transfer and SMS details', (tester) async {
     await tester.pumpWidget(buildScreen());
 
-    expect(find.text('Review the details'), findsOneWidget);
+    expect(find.text(enL10n.reviewDetailsTitle), findsOneWidget);
     expect(find.text('+993 65 12 34 56'), findsOneWidget);
     expect(find.text('25 TMT'), findsOneWidget);
     expect(find.text('0.10 TMT'), findsOneWidget);
     expect(find.text('25.10 TMT'), findsOneWidget);
-    expect(
-      find.text(
-        'You can dial *0800# to check if you have enough balance for this '
-        'transfer.',
-      ),
-      findsOneWidget,
-    );
-    expect(find.text('SMS to 0804'), findsOneWidget);
+    expect(find.text(enL10n.balanceCheckHint), findsOneWidget);
+    expect(find.text(enL10n.smsDestinationLabel), findsOneWidget);
     expect(find.text('99365123456 25'), findsOneWidget);
   });
 
@@ -78,7 +72,7 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    expect(find.text('Could not open Messages.'), findsOneWidget);
+    expect(find.text(enL10n.couldNotOpenMessages), findsOneWidget);
   });
 
   testWidgets('fits on a narrow phone without layout exceptions', (

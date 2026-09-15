@@ -15,20 +15,20 @@ void main() {
       ),
     );
 
-    expect(find.text('Enter the amount'), findsOneWidget);
+    expect(find.text(enL10n.enterAmountTitle), findsOneWidget);
     expect(
-      find.text('You are sending balance to +993 65 12 34 56.'),
+      find.text(enL10n.sendingBalanceTo('+993 65 12 34 56')),
       findsOneWidget,
     );
 
     final field = find.byKey(const Key('amount-field'));
     await tester.enterText(field, '51');
     await tester.pump();
-    expect(find.text('Enter an amount from 1 to 50 TMT.'), findsOneWidget);
+    expect(find.text(enL10n.invalidAmountError), findsOneWidget);
 
     await tester.enterText(field, '50');
     await tester.pump();
-    expect(find.text('Enter an amount from 1 to 50 TMT.'), findsNothing);
+    expect(find.text(enL10n.invalidAmountError), findsNothing);
   });
 
   testWidgets('fits on a narrow phone without layout exceptions', (

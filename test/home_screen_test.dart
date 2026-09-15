@@ -17,8 +17,11 @@ void main() {
     expect(find.byKey(const Key('personal-qr')), findsOneWidget);
     expect(find.byType(QrImageView), findsOneWidget);
     expect(find.byType(CustomPaint), findsWidgets);
-    expect(find.bySemanticsLabel('Personal QR code'), findsOneWidget);
+    expect(
+      find.bySemanticsLabel(enL10n.personalQrCodeSemantics),
+      findsOneWidget,
+    );
     expect(find.text('+993 65 12 34 56'), findsOneWidget);
-    expect(find.text('Scan to send balance'), findsOneWidget);
+    expect(find.text(enL10n.scanToSendBalance), findsOneWidget);
   });
 }

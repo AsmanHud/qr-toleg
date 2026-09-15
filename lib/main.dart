@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'l10n/app_localizations.dart';
+import 'l10n/turkmen_framework_localizations.dart';
 import 'screens/home_screen.dart';
 import 'screens/phone_entry_screen.dart';
 import 'screens/settings_screen.dart';
@@ -17,6 +18,7 @@ class QrTolegApp extends StatefulWidget {
   const QrTolegApp({this.preferences, super.key});
 
   static const phoneNumberPreferenceKey = 'phone_number';
+  static const languagePreferenceKey = 'language';
 
   final SharedPreferences? preferences;
 
@@ -25,11 +27,21 @@ class QrTolegApp extends StatefulWidget {
 }
 
 class _QrTolegAppState extends State<QrTolegApp> {
+  static const _defaultLanguageCode = 'tk';
+  static const _supportedLanguageCodes = {'tk', 'en'};
+
   String? _phoneNumber;
+  late String _languageCode;
 
   @override
   void initState() {
     super.initState();
+    final savedLanguageCode = widget.preferences?.getString(
+      QrTolegApp.languagePreferenceKey,
+    );
+    _languageCode = _supportedLanguageCodes.contains(savedLanguageCode)
+        ? savedLanguageCode!
+        : _defaultLanguageCode;
     final savedPhoneNumber = widget.preferences?.getString(
       QrTolegApp.phoneNumberPreferenceKey,
     );
@@ -54,11 +66,26 @@ class _QrTolegAppState extends State<QrTolegApp> {
     }
   }
 
+  Future<void> _changeLanguage(String languageCode) async {
+    if (!_supportedLanguageCodes.contains(languageCode) ||
+        languageCode == _languageCode) {
+      return;
+    }
+    setState(() => _languageCode = languageCode);
+    await widget.preferences?.setString(
+      QrTolegApp.languagePreferenceKey,
+      languageCode,
+    );
+  }
+
   void _openSettings(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (context) =>
-            SettingsScreen(onResetPhoneNumber: _resetPhoneNumber),
+        builder: (context) => SettingsScreen(
+          languageCode: _languageCode,
+          onLanguageChanged: _changeLanguage,
+          onResetPhoneNumber: _resetPhoneNumber,
+        ),
       ),
     );
   }
@@ -70,9 +97,12 @@ class _QrTolegAppState extends State<QrTolegApp> {
     final phoneNumber = _phoneNumber;
 
     return MaterialApp(
+      locale: Locale(_languageCode),
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       localizationsDelegates: const [
         AppLocalizations.delegate,
+        TurkmenMaterialLocalizationsDelegate(),
+        TurkmenCupertinoLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

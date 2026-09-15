@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/main.dart';
 
+import 'test_app.dart';
+
 void main() {
   testWidgets('asks for an 8-digit TMcell number before showing the QR', (
     tester,
   ) async {
     await tester.pumpWidget(const QrTolegApp());
 
-    expect(find.text('Enter your phone number'), findsOneWidget);
+    expect(find.text(tkL10n.enterPhoneNumberTitle), findsOneWidget);
     expect(find.byKey(const Key('phone-country-code')), findsOneWidget);
     expect(find.byKey(const Key('phone-number-hint')), findsOneWidget);
     expect(find.textContaining('*222#'), findsOneWidget);
@@ -30,14 +32,14 @@ void main() {
     await tester.tap(proceedButton);
     await tester.pumpAndSettle();
 
-    expect(find.text('Is this your number?'), findsOneWidget);
+    expect(find.text(tkL10n.confirmPhoneNumberTitle), findsOneWidget);
     expect(find.text('+993 71 12 34 56'), findsOneWidget);
     expect(find.byKey(const Key('personal-qr')), findsNothing);
 
     await tester.tap(find.byKey(const Key('confirm-phone-number')));
     await tester.pumpAndSettle();
 
-    expect(find.text('Receive balance'), findsOneWidget);
+    expect(find.text(tkL10n.receiveBalanceTitle), findsOneWidget);
     expect(find.byKey(const Key('personal-qr')), findsOneWidget);
     expect(find.text('+993 71 12 34 56'), findsOneWidget);
   });
@@ -53,7 +55,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('phone-country-code')), findsOneWidget);
-    expect(find.text('Enter your phone number'), findsOneWidget);
+    expect(find.text(tkL10n.enterPhoneNumberTitle), findsOneWidget);
     expect(
       tester
           .widget<FilledButton>(find.byKey(const Key('proceed-button')))
@@ -78,8 +80,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
-    expect(find.text('Enter your phone number'), findsOneWidget);
-    expect(find.text('Proceed'), findsOneWidget);
+    expect(find.text(tkL10n.enterPhoneNumberTitle), findsOneWidget);
+    expect(find.text(tkL10n.proceedAction), findsOneWidget);
   });
 
   testWidgets('allows editing a number instead of confirming it', (
@@ -97,7 +99,7 @@ void main() {
     await tester.tap(find.byKey(const Key('edit-phone-number')));
     await tester.pumpAndSettle();
 
-    expect(find.text('Is this your number?'), findsNothing);
+    expect(find.text(tkL10n.confirmPhoneNumberTitle), findsNothing);
     expect(find.text('65123456'), findsOneWidget);
     expect(find.byKey(const Key('personal-qr')), findsNothing);
   });
