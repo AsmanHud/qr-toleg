@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -5,6 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 import '../l10n/app_localizations.dart';
 import '../qr_payload.dart';
 import 'amount_entry_screen.dart';
+
+const _debugRecipientPhoneNumber = '99365123456';
 
 enum CameraAccess { checking, granted, denied, permanentlyDenied, unavailable }
 
@@ -156,6 +159,7 @@ class _QrScannerScreenState extends State<QrScannerScreen>
             body: l10n.cameraAccessNeededBody,
             actionLabel: l10n.tryAgainAction,
             onAction: _requestPermission,
+            debugAction: kDebugMode ? _buildDebugBypassButton() : null,
           ),
           CameraAccess.permanentlyDenied => _PermissionMessage(
             icon: Icons.settings_outlined,
@@ -163,13 +167,28 @@ class _QrScannerScreenState extends State<QrScannerScreen>
             body: l10n.cameraAccessDisabledBody,
             actionLabel: l10n.openSettingsAction,
             onAction: _openSettings,
+            debugAction: kDebugMode ? _buildDebugBypassButton() : null,
           ),
           CameraAccess.unavailable => _PermissionMessage(
             icon: Icons.no_photography_outlined,
             title: l10n.cameraUnavailableTitle,
             body: l10n.cameraUnavailableDeviceBody,
+            debugAction: kDebugMode ? _buildDebugBypassButton() : null,
           ),
         },
+      ),
+    );
+  }
+
+  Widget _buildDebugBypassButton() {
+    return OutlinedButton.icon(
+      key: const Key('debug-skip-scanner'),
+      onPressed: () => _handleCode(encodeQrPayload(_debugRecipientPhoneNumber)),
+      icon: const Icon(Icons.developer_mode_outlined),
+      label: const Text('Debug: use mock recipient'),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: Colors.white,
+        side: const BorderSide(color: Colors.white70),
       ),
     );
   }
@@ -233,6 +252,10 @@ class _QrScannerScreenState extends State<QrScannerScreen>
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  if (kDebugMode) ...[
+                    const SizedBox(height: 16),
+                    _buildDebugBypassButton(),
+                  ],
                   if (widget.scannerBuilder == null) ...[
                     const SizedBox(height: 20),
                     ValueListenableBuilder(
@@ -273,6 +296,7 @@ class _PermissionMessage extends StatelessWidget {
     required this.body,
     this.actionLabel,
     this.onAction,
+    this.debugAction,
   });
 
   final IconData icon;
@@ -280,6 +304,7 @@ class _PermissionMessage extends StatelessWidget {
   final String body;
   final String? actionLabel;
   final VoidCallback? onAction;
+  final Widget? debugAction;
 
   @override
   Widget build(BuildContext context) {
@@ -311,6 +336,10 @@ class _PermissionMessage extends StatelessWidget {
               if (actionLabel != null && onAction != null) ...[
                 const SizedBox(height: 24),
                 FilledButton(onPressed: onAction, child: Text(actionLabel!)),
+              ],
+              if (debugAction != null) ...[
+                const SizedBox(height: 12),
+                debugAction!,
               ],
             ],
           ),
