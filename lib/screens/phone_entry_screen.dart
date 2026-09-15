@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../l10n/app_localizations.dart';
+
 class PhoneEntryScreen extends StatefulWidget {
   const PhoneEntryScreen({required this.onProceed, super.key});
 
@@ -28,11 +30,12 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
 
   Future<void> _proceed() async {
     if (!_isComplete) return;
+    final l10n = AppLocalizations.of(context);
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Is this your number?'),
+        title: Text(l10n.confirmPhoneNumberTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,21 +47,19 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Please check carefully. Money sent using your QR code will go to this phone number.',
-            ),
+            Text(l10n.confirmPhoneNumberWarning),
           ],
         ),
         actions: [
           TextButton(
             key: const Key('edit-phone-number'),
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Edit'),
+            child: Text(l10n.editAction),
           ),
           FilledButton(
             key: const Key('confirm-phone-number'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes, this is my number'),
+            child: Text(l10n.confirmPhoneNumberAction),
           ),
         ],
       ),
@@ -78,15 +79,16 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         surfaceTintColor: Colors.transparent,
         titleSpacing: 20,
-        title: const Text(
-          'QR Töleg',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+        title: Text(
+          l10n.appTitle,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
       ),
       body: SafeArea(
@@ -124,18 +126,18 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                       ),
                       const SizedBox(height: 28),
                       Text(
-                        'Enter your phone number',
+                        l10n.enterPhoneNumberTitle,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'We use your TMcell number to create your personal QR code.',
+                        l10n.enterPhoneNumberDescription,
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
                       ),
                       const SizedBox(height: 32),
                       Text(
-                        'TMcell number',
+                        l10n.tmcellNumberLabel,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
@@ -203,7 +205,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Enter the 8 digits after +993.',
+                        l10n.phoneNumberHelper,
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
                       ),
@@ -219,7 +221,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'Not sure of your number? Dial *222# on your phone to check it.',
+                              l10n.phoneNumberCheckHint,
                               key: const Key('phone-number-hint'),
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(color: colors.onSurfaceVariant),
@@ -241,7 +243,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                             borderRadius: BorderRadius.circular(6),
                           ),
                         ),
-                        child: const Text('Proceed'),
+                        child: Text(l10n.proceedAction),
                       ),
                     ],
                   ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../l10n/app_localizations.dart';
+
 typedef MessageLauncher = Future<bool> Function(Uri uri);
 
 class TransferConfirmationScreen extends StatelessWidget {
@@ -26,9 +28,11 @@ class TransferConfirmationScreen extends StatelessWidget {
 
     final launched = await launchMessage(uri);
     if (!launched && context.mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Could not open Messages.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).couldNotOpenMessages),
+        ),
+      );
     }
   }
 
@@ -44,13 +48,14 @@ class TransferConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     final total = (amount + carrierFee).toStringAsFixed(2);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text('Confirm transfer'),
+        title: Text(l10n.confirmTransferTitle),
       ),
       body: SafeArea(
         top: false,
@@ -72,21 +77,24 @@ class TransferConfirmationScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Review the details',
+                        l10n.reviewDetailsTitle,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 24),
                       _DetailRow(
-                        label: 'Recipient',
+                        label: l10n.recipientLabel,
                         value: _formattedRecipient,
                       ),
                       const Divider(height: 32),
-                      _DetailRow(label: 'Amount', value: '$amount TMT'),
+                      _DetailRow(label: l10n.amountLabel, value: '$amount TMT'),
                       const SizedBox(height: 14),
-                      const _DetailRow(label: 'Carrier fee', value: '0.10 TMT'),
+                      _DetailRow(
+                        label: l10n.carrierFeeLabel,
+                        value: '0.10 TMT',
+                      ),
                       const Divider(height: 32),
                       _DetailRow(
-                        label: 'Total required balance',
+                        label: l10n.totalRequiredBalanceLabel,
                         value: '$total TMT',
                         emphasized: true,
                       ),
@@ -102,7 +110,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'You can dial *0800# to check if you have enough balance for this transfer.',
+                              l10n.balanceCheckHint,
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(color: colors.onSurfaceVariant),
                             ),
@@ -111,7 +119,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
                       Text(
-                        'SMS to 0804',
+                        l10n.smsDestinationLabel,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
@@ -136,7 +144,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                         key: const Key('open-messages-button'),
                         onPressed: () => _openMessages(context),
                         icon: const Icon(Icons.message_outlined),
-                        label: const Text('Open Messages'),
+                        label: Text(l10n.openMessagesAction),
                       ),
                     ],
                   ),

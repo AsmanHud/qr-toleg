@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../l10n/app_localizations.dart';
 import '../qr_payload.dart';
 import 'amount_entry_screen.dart';
 
@@ -108,6 +109,8 @@ class _QrScannerScreenState extends State<QrScannerScreen>
   }
 
   void _handleCode(String rawValue) {
+    final invalidQrCodeMessage = AppLocalizations.of(context)
+        .invalidQrCodeMessage;
     final recipientPhoneNumber = decodeQrPayload(rawValue);
     if (recipientPhoneNumber != null) {
       if (_isOpeningAmountEntry) return;
@@ -122,21 +125,23 @@ class _QrScannerScreenState extends State<QrScannerScreen>
           .whenComplete(() => _isOpeningAmountEntry = false);
       return;
     }
-    if (_message == "This isn't a QR Töleg code.") {
+    if (_message == invalidQrCodeMessage) {
       return;
     }
-    setState(() => _message = "This isn't a QR Töleg code.");
+    setState(() => _message = invalidQrCodeMessage);
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
-        title: const Text('Scan QR code'),
+        title: Text(l10n.scanQrCodeTitle),
       ),
       body: SafeArea(
         top: false,
@@ -147,22 +152,22 @@ class _QrScannerScreenState extends State<QrScannerScreen>
           CameraAccess.granted => _buildScanner(),
           CameraAccess.denied => _PermissionMessage(
             icon: Icons.no_photography_outlined,
-            title: 'Camera access is needed',
-            body: 'Allow camera access to scan a QR Töleg code.',
-            actionLabel: 'Try again',
+            title: l10n.cameraAccessNeededTitle,
+            body: l10n.cameraAccessNeededBody,
+            actionLabel: l10n.tryAgainAction,
             onAction: _requestPermission,
           ),
           CameraAccess.permanentlyDenied => _PermissionMessage(
             icon: Icons.settings_outlined,
-            title: 'Allow camera access in Settings',
-            body: 'Camera access is turned off for QR Töleg.',
-            actionLabel: 'Open settings',
+            title: l10n.allowCameraInSettingsTitle,
+            body: l10n.cameraAccessDisabledBody,
+            actionLabel: l10n.openSettingsAction,
             onAction: _openSettings,
           ),
-          CameraAccess.unavailable => const _PermissionMessage(
+          CameraAccess.unavailable => _PermissionMessage(
             icon: Icons.no_photography_outlined,
-            title: 'Camera unavailable',
-            body: 'The camera cannot be used on this device.',
+            title: l10n.cameraUnavailableTitle,
+            body: l10n.cameraUnavailableDeviceBody,
           ),
         },
       ),
@@ -170,6 +175,7 @@ class _QrScannerScreenState extends State<QrScannerScreen>
   }
 
   Widget _buildScanner() {
+    final l10n = AppLocalizations.of(context);
     final scanner =
         widget.scannerBuilder?.call(context, _handleCode) ??
         MobileScanner(
@@ -183,10 +189,10 @@ class _QrScannerScreenState extends State<QrScannerScreen>
               }
             }
           },
-          errorBuilder: (context, error) => const _PermissionMessage(
+          errorBuilder: (context, error) => _PermissionMessage(
             icon: Icons.no_photography_outlined,
-            title: 'Camera unavailable',
-            body: 'The camera could not be started.',
+            title: l10n.cameraUnavailableTitle,
+            body: l10n.cameraCouldNotStartBody,
           ),
         );
 
@@ -219,7 +225,7 @@ class _QrScannerScreenState extends State<QrScannerScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    _message ?? 'Place the QR code inside the frame',
+                    _message ?? l10n.placeQrInFrame,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.white,
@@ -239,8 +245,8 @@ class _QrScannerScreenState extends State<QrScannerScreen>
                         return IconButton.filledTonal(
                           onPressed: _controller.toggleTorch,
                           tooltip: isOn
-                              ? 'Turn off flashlight'
-                              : 'Turn on flashlight',
+                              ? l10n.turnOffFlashlightTooltip
+                              : l10n.turnOnFlashlightTooltip,
                           icon: Icon(
                             isOn
                                 ? Icons.flash_off_rounded

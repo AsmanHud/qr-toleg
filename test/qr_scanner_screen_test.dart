@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/screens/amount_entry_screen.dart';
 import 'package:qrtoleg/screens/qr_scanner_screen.dart';
 
+import 'test_app.dart';
+
 void main() {
   testWidgets('shows retry when camera permission is denied', (tester) async {
     final permissions = _FakeCameraPermissionGateway([
@@ -110,7 +112,7 @@ Widget _app(
   CameraPermissionGateway permissions, {
   ScannerBuilder? scannerBuilder,
 }) {
-  return MaterialApp(
+  return localizedTestApp(
     home: QrScannerScreen(
       permissionGateway: permissions,
       scannerBuilder: scannerBuilder,

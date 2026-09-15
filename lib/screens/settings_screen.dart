@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({required this.onResetPhoneNumber, super.key});
 
   final Future<void> Function() onResetPhoneNumber;
 
   Future<void> _confirmReset(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
     final shouldReset = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Reset phone number?'),
-        content: const Text(
-          'Your saved number will be removed and you will return to the welcome screen.',
-        ),
+        title: Text(l10n.resetPhoneNumberQuestion),
+        content: Text(l10n.resetPhoneNumberWarning),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancelAction),
           ),
           FilledButton(
             key: const Key('confirm-reset-phone-number'),
@@ -25,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: const Text('Reset'),
+            child: Text(l10n.resetAction),
           ),
         ],
       ),
@@ -42,12 +43,13 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text('Settings'),
+        title: Text(l10n.settingsTitle),
       ),
       body: SafeArea(
         top: false,
@@ -70,15 +72,13 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   leading: Icon(Icons.delete_outline, color: colors.error),
                   title: Text(
-                    'Reset phone number',
+                    l10n.resetPhoneNumberTitle,
                     style: TextStyle(
                       color: colors.error,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  subtitle: const Text(
-                    'Remove the number saved on this device',
-                  ),
+                  subtitle: Text(l10n.resetPhoneNumberDescription),
                   onTap: () => _confirmReset(context),
                 ),
               ),

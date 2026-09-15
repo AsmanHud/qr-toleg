@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/screens/transfer_confirmation_screen.dart';
 
+import 'test_app.dart';
+
 void main() {
   Widget buildScreen({int amount = 25, MessageLauncher? launchMessage}) {
-    return MaterialApp(
+    return localizedTestApp(
       home: TransferConfirmationScreen(
         recipientPhoneNumber: '99365123456',
         amount: amount,

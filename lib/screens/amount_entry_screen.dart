@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../l10n/app_localizations.dart';
 import 'transfer_confirmation_screen.dart';
 
 class AmountEntryScreen extends StatefulWidget {
@@ -55,12 +56,13 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text('Send balance'),
+        title: Text(l10n.sendBalanceTitle),
       ),
       body: SafeArea(
         top: false,
@@ -97,18 +99,18 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                       ),
                       const SizedBox(height: 28),
                       Text(
-                        'Enter the amount',
+                        l10n.enterAmountTitle,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'You are sending balance to $_formattedRecipient.',
+                        l10n.sendingBalanceTo(_formattedRecipient),
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
                       ),
                       const SizedBox(height: 32),
                       Text(
-                        'Amount',
+                        l10n.amountLabel,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
@@ -131,7 +133,7 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                           hintText: '0',
                           suffixText: 'TMT',
                           errorText: _hasInvalidAmount
-                              ? 'Enter an amount from 1 to 50 TMT.'
+                              ? l10n.invalidAmountError
                               : null,
                           filled: true,
                           fillColor: colors.surface,
@@ -157,7 +159,7 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Enter a whole-number amount from 1 to 50 TMT.',
+                        l10n.amountHelper,
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
                       ),
@@ -167,7 +169,7 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                         onPressed: _hasInvalidAmount || _amount == null
                             ? null
                             : _proceed,
-                        child: const Text('Proceed'),
+                        child: Text(l10n.proceedAction),
                       ),
                     ],
                   ),

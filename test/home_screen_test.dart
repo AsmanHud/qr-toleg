@@ -3,10 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qrtoleg/screens/home_screen.dart';
 
+import 'test_app.dart';
+
 void main() {
   testWidgets('shows the personal QR and phone number', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      localizedTestApp(
         home: HomeScreen(phoneNumber: '99365123456', onOpenSettings: (_) {}),
       ),
     );

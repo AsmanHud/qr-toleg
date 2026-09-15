@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../l10n/app_localizations.dart';
 import '../qr_payload.dart';
 import 'qr_scanner_screen.dart';
 
@@ -24,20 +25,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         surfaceTintColor: Colors.transparent,
         titleSpacing: 20,
-        title: const Text(
-          'QR Töleg',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+        title: Text(
+          l10n.appTitle,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
         actions: [
           IconButton(
             onPressed: () => onOpenSettings(context),
-            tooltip: 'Settings',
+            tooltip: l10n.settingsTooltip,
             icon: const Icon(Icons.settings_outlined),
           ),
           const SizedBox(width: 8),
@@ -65,12 +67,12 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Receive balance',
+                        l10n.receiveBalanceTitle,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Show this code to the person sending you balance.',
+                        l10n.receiveBalanceDescription,
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
                       ),
@@ -91,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(12),
                               backgroundColor: Colors.white,
                               errorCorrectionLevel: QrErrorCorrectLevel.M,
-                              semanticsLabel: 'Personal QR code',
+                              semanticsLabel: l10n.personalQrCodeSemantics,
                             ),
                             const SizedBox(height: 22),
                             Text(
@@ -100,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              'Your TMcell number',
+                              l10n.yourTmcellNumber,
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(color: colors.onSurfaceVariant),
                             ),
@@ -115,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         icon: const Icon(Icons.qr_code_scanner_rounded),
-                        label: const Text('Scan to send balance'),
+                        label: Text(l10n.scanToSendBalance),
                         style: FilledButton.styleFrom(
                           minimumSize: const Size.fromHeight(56),
                           textStyle: const TextStyle(

@@ -3,13 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:qrtoleg/screens/amount_entry_screen.dart';
 import 'package:qrtoleg/screens/transfer_confirmation_screen.dart';
 
+import 'test_app.dart';
+
 void main() {
   testWidgets('shows the recipient and validates the transfer range', (
     tester,
   ) async {
     await tester.pumpWidget(
-      const MaterialApp(
-        home: AmountEntryScreen(recipientPhoneNumber: '99365123456'),
+      localizedTestApp(
+        home: const AmountEntryScreen(recipientPhoneNumber: '99365123456'),
       ),
     );
 
@@ -38,8 +40,8 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     await tester.pumpWidget(
-      const MaterialApp(
-        home: AmountEntryScreen(recipientPhoneNumber: '99365123456'),
+      localizedTestApp(
+        home: const AmountEntryScreen(recipientPhoneNumber: '99365123456'),
       ),
     );
     await tester.pumpAndSettle();
@@ -50,8 +52,8 @@ void main() {
 
   testWidgets('valid amount proceeds to transfer confirmation', (tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
-        home: AmountEntryScreen(recipientPhoneNumber: '99365123456'),
+      localizedTestApp(
+        home: const AmountEntryScreen(recipientPhoneNumber: '99365123456'),
       ),
     );
 
