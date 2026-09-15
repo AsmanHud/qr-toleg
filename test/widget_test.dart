@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qrtoleg/main.dart';
 import 'package:qrtoleg/screens/home_screen.dart';
-import 'package:qrtoleg/widgets/personal_qr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -105,7 +105,7 @@ void main() {
     expect(find.byKey(const Key('personal-qr')), findsNothing);
   });
 
-  testWidgets('home screen shows a QR containing the personal payload', (
+  testWidgets('home screen shows the personal QR and phone number', (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -115,8 +115,10 @@ void main() {
     );
 
     expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
-    final qr = tester.widget<PersonalQr>(find.byType(PersonalQr));
-    expect(qr.payload, 'QRTM1:99365123456');
+    expect(find.byKey(const Key('personal-qr')), findsOneWidget);
+    expect(find.byType(QrImageView), findsOneWidget);
+    expect(find.byType(CustomPaint), findsWidgets);
+    expect(find.bySemanticsLabel('Personal QR code'), findsOneWidget);
     expect(find.text('+993 65 12 34 56'), findsOneWidget);
     expect(find.text('Scan to send balance'), findsOneWidget);
   });

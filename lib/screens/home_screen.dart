@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
-import '../widgets/personal_qr.dart';
+import '../qr_payload.dart';
 import 'qr_scanner_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -83,7 +84,15 @@ class HomeScreen extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            PersonalQr(phoneNumber: phoneNumber, size: qrSize),
+                            QrImageView(
+                              key: const Key('personal-qr'),
+                              data: encodeQrPayload(phoneNumber),
+                              size: qrSize,
+                              padding: const EdgeInsets.all(12),
+                              backgroundColor: Colors.white,
+                              errorCorrectionLevel: QrErrorCorrectLevel.M,
+                              semanticsLabel: 'Personal QR code',
+                            ),
                             const SizedBox(height: 22),
                             Text(
                               _formattedPhoneNumber,
