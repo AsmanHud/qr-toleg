@@ -65,6 +65,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proceedAction => 'Proceed';
 
   @override
+  String get tmcellAffiliationDisclaimer =>
+      'This is not an official TMcell app and is not affiliated with TMcell.';
+
+  @override
   String get sendBalanceTitle => 'Send balance';
 
   @override

@@ -65,6 +65,10 @@ class AppLocalizationsTk extends AppLocalizations {
   String get proceedAction => 'Dowam et';
 
   @override
+  String get tmcellAffiliationDisclaimer =>
+      'Bu programma TMcell-iň resmi programmasy däldir we TMcell bilen hiç hili baglanyşygy ýokdur.';
+
+  @override
   String get sendBalanceTitle => 'Balans geçirmek';
 
   @override

@@ -14,6 +14,7 @@ void main() {
     expect(find.byKey(const Key('phone-country-code')), findsOneWidget);
     expect(find.byKey(const Key('phone-number-hint')), findsOneWidget);
     expect(find.textContaining('*222#'), findsOneWidget);
+    expect(find.text(tkL10n.tmcellAffiliationDisclaimer), findsOneWidget);
     expect(find.byKey(const Key('personal-qr')), findsNothing);
 
     final proceedButton = find.byKey(const Key('proceed-button'));

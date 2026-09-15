@@ -245,6 +245,14 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                         ),
                         child: Text(l10n.proceedAction),
                       ),
+                      const SizedBox(height: 20),
+                      Text(
+                        l10n.tmcellAffiliationDisclaimer,
+                        key: const Key('tmcell-affiliation-disclaimer'),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodySmall
+                            ?.copyWith(color: colors.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),

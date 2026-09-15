@@ -200,6 +200,12 @@ abstract class AppLocalizations {
   /// **'Proceed'**
   String get proceedAction;
 
+  /// No description provided for @tmcellAffiliationDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not an official TMcell app and is not affiliated with TMcell.'**
+  String get tmcellAffiliationDisclaimer;
+
   /// No description provided for @sendBalanceTitle.
   ///
   /// In en, this message translates to:
