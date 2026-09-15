@@ -100,7 +100,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
             return SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(
                 horizontalPadding,
-                36,
+                12,
                 horizontalPadding,
                 28,
               ),
