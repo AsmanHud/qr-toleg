@@ -203,7 +203,7 @@ abstract class AppLocalizations {
   /// No description provided for @tmcellAffiliationDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'This is not an official TMcell app and is not affiliated with TMcell.'**
+  /// **'This is not an official TMcell app and is not affiliated with TMcell. The phone number you enter is stored only on your phone. The app does not store it outside your phone or send it anywhere.'**
   String get tmcellAffiliationDisclaimer;
 
   /// No description provided for @sendBalanceTitle.

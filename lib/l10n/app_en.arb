@@ -20,7 +20,7 @@
   "phoneNumberHelper": "Enter the 8 digits after +993.",
   "phoneNumberCheckHint": "Not sure of your number? Dial *222# on your phone to check it.",
   "proceedAction": "Proceed",
-  "tmcellAffiliationDisclaimer": "This is not an official TMcell app and is not affiliated with TMcell.",
+  "tmcellAffiliationDisclaimer": "This is not an official TMcell app and is not affiliated with TMcell. The phone number you enter is stored only on your phone. The app does not store it outside your phone or send it anywhere.",
   "sendBalanceTitle": "Send balance",
   "enterAmountTitle": "Enter the amount",
   "sendingBalanceTo": "You are sending balance to {recipient}.",

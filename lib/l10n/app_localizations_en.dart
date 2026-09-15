@@ -66,7 +66,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tmcellAffiliationDisclaimer =>
-      'This is not an official TMcell app and is not affiliated with TMcell.';
+      'This is not an official TMcell app and is not affiliated with TMcell. The phone number you enter is stored only on your phone. The app does not store it outside your phone or send it anywhere.';
 
   @override
   String get sendBalanceTitle => 'Send balance';
