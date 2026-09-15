@@ -85,7 +85,7 @@ class AppLocalizationsTk extends AppLocalizations {
   String get amountHelper => '1–50 TMT aralygynda diňe bitin san giriziň.';
 
   @override
-  String get couldNotOpenMessages => 'Habarlar programmasyny açyp bolmady.';
+  String get couldNotOpenMessages => 'SMS programmasyny açyp bolmady.';
 
   @override
   String get confirmTransferTitle => 'Geçirimi tassyklamak';
@@ -110,7 +110,7 @@ class AppLocalizationsTk extends AppLocalizations {
   String get smsDestinationLabel => '0804 belgä SMS';
 
   @override
-  String get openMessagesAction => 'Habarlar programmasyny aç';
+  String get openMessagesAction => 'SMS programmasyny aç';
 
   @override
   String get scanQrCodeTitle => 'QR-kody skanirlemek';
