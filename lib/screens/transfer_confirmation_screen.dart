@@ -90,6 +90,25 @@ class TransferConfirmationScreen extends StatelessWidget {
                         value: '$total TMT',
                         emphasized: true,
                       ),
+                      const SizedBox(height: 14),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.info_outline_rounded,
+                            size: 20,
+                            color: colors.primary,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'You can dial *0800# to check if you have enough balance for this transfer.',
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(color: colors.onSurfaceVariant),
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(height: 32),
                       Text(
                         'SMS to 0804',

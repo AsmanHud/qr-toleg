@@ -21,6 +21,13 @@ void main() {
     expect(find.text('25 TMT'), findsOneWidget);
     expect(find.text('0.10 TMT'), findsOneWidget);
     expect(find.text('25.10 TMT'), findsOneWidget);
+    expect(
+      find.text(
+        'You can dial *0800# to check if you have enough balance for this '
+        'transfer.',
+      ),
+      findsOneWidget,
+    );
     expect(find.text('SMS to 0804'), findsOneWidget);
     expect(find.text('99365123456 25'), findsOneWidget);
   });
@@ -51,6 +58,7 @@ void main() {
     final button = find.byKey(const Key('open-messages-button'));
     expect(tester.widget<FilledButton>(button).onPressed, isNotNull);
 
+    await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pump();
 
@@ -63,7 +71,9 @@ void main() {
   testWidgets('shows an error when Messages cannot be opened', (tester) async {
     await tester.pumpWidget(buildScreen(launchMessage: (_) async => false));
 
-    await tester.tap(find.byKey(const Key('open-messages-button')));
+    final button = find.byKey(const Key('open-messages-button'));
+    await tester.ensureVisible(button);
+    await tester.tap(button);
     await tester.pump();
 
     expect(find.text('Could not open Messages.'), findsOneWidget);
