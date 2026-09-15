@@ -13,6 +13,8 @@ void main() {
 
     expect(find.text('Enter your phone number'), findsOneWidget);
     expect(find.byKey(const Key('phone-country-code')), findsOneWidget);
+    expect(find.byKey(const Key('phone-number-hint')), findsOneWidget);
+    expect(find.textContaining('*222#'), findsOneWidget);
     expect(find.byKey(const Key('personal-qr')), findsNothing);
 
     final proceedButton = find.byKey(const Key('proceed-button'));
@@ -27,8 +29,16 @@ void main() {
     expect(find.text('71123456'), findsOneWidget);
     expect(tester.widget<FilledButton>(proceedButton).onPressed, isNotNull);
 
+    await tester.ensureVisible(proceedButton);
     await tester.tap(proceedButton);
-    await tester.pump();
+    await tester.pumpAndSettle();
+
+    expect(find.text('Is this your number?'), findsOneWidget);
+    expect(find.text('+993 71 12 34 56'), findsOneWidget);
+    expect(find.byKey(const Key('personal-qr')), findsNothing);
+
+    await tester.tap(find.byKey(const Key('confirm-phone-number')));
+    await tester.pumpAndSettle();
 
     expect(find.text('Receive balance'), findsOneWidget);
     expect(find.byKey(const Key('personal-qr')), findsOneWidget);
@@ -75,6 +85,26 @@ void main() {
     expect(find.text('Proceed'), findsOneWidget);
   });
 
+  testWidgets('allows editing a number instead of confirming it', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const QrTolegApp());
+    final field = find.byKey(const Key('phone-number-field'));
+
+    await tester.enterText(field, '65123456');
+    await tester.pump();
+    final proceedButton = find.byKey(const Key('proceed-button'));
+    await tester.ensureVisible(proceedButton);
+    await tester.tap(proceedButton);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('edit-phone-number')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Is this your number?'), findsNothing);
+    expect(find.text('65123456'), findsOneWidget);
+    expect(find.byKey(const Key('personal-qr')), findsNothing);
+  });
+
   testWidgets('home screen shows a QR containing the personal payload', (
     tester,
   ) async {
@@ -103,8 +133,18 @@ void main() {
       '65123456',
     );
     await tester.pump();
-    await tester.tap(find.byKey(const Key('proceed-button')));
-    await tester.pump();
+    final proceedButton = find.byKey(const Key('proceed-button'));
+    await tester.ensureVisible(proceedButton);
+    await tester.tap(proceedButton);
+    await tester.pumpAndSettle();
+
+    expect(
+      preferences.containsKey(QrTolegApp.phoneNumberPreferenceKey),
+      isFalse,
+    );
+
+    await tester.tap(find.byKey(const Key('confirm-phone-number')));
+    await tester.pumpAndSettle();
 
     expect(
       preferences.getString(QrTolegApp.phoneNumberPreferenceKey),

@@ -15,8 +15,58 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
 
   bool get _isComplete => _phoneController.text.length == 8;
 
-  void _proceed() {
-    widget.onProceed('993${_phoneController.text}');
+  String get _phoneNumber => '993${_phoneController.text}';
+
+  String get _formattedPhoneNumber {
+    final number = _phoneNumber;
+    return '+${number.substring(0, 3)} '
+        '${number.substring(3, 5)} '
+        '${number.substring(5, 7)} '
+        '${number.substring(7, 9)} '
+        '${number.substring(9, 11)}';
+  }
+
+  Future<void> _proceed() async {
+    if (!_isComplete) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Is this your number?'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              _formattedPhoneNumber,
+              key: const Key('phone-number-confirmation-value'),
+              style: Theme.of(context).textTheme.headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Please check carefully. Money sent using your QR code will go to this phone number.',
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            key: const Key('edit-phone-number'),
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Edit'),
+          ),
+          FilledButton(
+            key: const Key('confirm-phone-number'),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes, this is my number'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      widget.onProceed(_phoneNumber);
+    }
   }
 
   @override
@@ -156,6 +206,26 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                         'Enter the 8 digits after +993.',
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.onSurfaceVariant),
+                      ),
+                      const SizedBox(height: 14),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.info_outline_rounded,
+                            size: 20,
+                            color: colors.primary,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'Not sure of your number? Dial *222# on your phone to check it.',
+                              key: const Key('phone-number-hint'),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(color: colors.onSurfaceVariant),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 32),
                       FilledButton(
