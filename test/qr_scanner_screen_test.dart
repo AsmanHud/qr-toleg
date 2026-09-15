@@ -26,6 +26,9 @@ void main() {
     await tester.pump();
 
     expect(find.byKey(const Key('scan-frame')), findsOneWidget);
+    final frameCenter = tester.getCenter(find.byKey(const Key('scan-frame')));
+    final screenCenter = tester.getCenter(find.byType(Scaffold));
+    expect(frameCenter.dy, lessThan(screenCenter.dy));
     expect(permissions.requestCount, 2);
   });
 

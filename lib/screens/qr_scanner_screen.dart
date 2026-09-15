@@ -198,7 +198,8 @@ class _QrScannerScreenState extends State<QrScannerScreen>
           children: [
             scanner,
             IgnorePointer(
-              child: Center(
+              child: Align(
+                alignment: const Alignment(0, -0.30),
                 child: Container(
                   key: const Key('scan-frame'),
                   width: scanSize,
