@@ -117,4 +117,4 @@ New-AppIcon `
 
 New-AppIcon `
     -Size 512 `
-    -OutputPath (Join-Path $projectRoot 'media\play-store\qr-toleg-play-store-icon.png')
+    -OutputPath (Join-Path $projectRoot 'media\play-store\icon\qr-toleg-play-store-icon.png')
