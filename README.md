@@ -73,3 +73,5 @@ flutter test
 
 See [PRODUCT.md](PRODUCT.md) for the product goals, transfer assumptions, QR
 payload format, and scope.
+
+Privacy policy: https://asmanhud.github.io/qr-toleg/privacy-policy.html
