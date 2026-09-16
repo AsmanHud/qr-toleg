@@ -13,7 +13,9 @@ Run `flutter analyze` and `flutter test` before submitting changes.
 - `lib/widgets/` - Reusable UI components shared across screens.
 - `test/` - Flutter widget and unit tests.
 - `test/test_app.dart` - Shared localized widget-test harness and locale lookups.
-- `design/icon-concepts/qr-toleg-icon-final.png` - Canonical QR Töleg app-icon master.
+- `media/` - Media assets used within this project.
+- `media/icon-concepts/qr-toleg-icon-final.png` - Canonical QR Töleg app-icon master.
+- `tool/` - Helper scripts for various tasks.
 - `tool/generate_app_icons.ps1` - Regenerates Android and iOS launcher icon assets from the final icon geometry.
 - `android/` and `ios/` - Platform-specific runner projects and configuration.
 - `PRODUCT.md` - Product intent, requirements, and UX direction.

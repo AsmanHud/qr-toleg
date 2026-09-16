@@ -113,8 +113,8 @@ foreach ($entry in $iosIcons.GetEnumerator()) {
 
 New-AppIcon `
     -Size 1024 `
-    -OutputPath (Join-Path $projectRoot 'design\icon-concepts\qr-toleg-icon-final.png')
+    -OutputPath (Join-Path $projectRoot 'media\icon-concepts\qr-toleg-icon-final.png')
 
 New-AppIcon `
     -Size 512 `
-    -OutputPath (Join-Path $projectRoot 'design\play-store\qr-toleg-play-store-icon.png')
+    -OutputPath (Join-Path $projectRoot 'media\play-store\qr-toleg-play-store-icon.png')

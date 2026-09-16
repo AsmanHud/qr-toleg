@@ -1,8 +1,8 @@
 Add-Type -AssemblyName System.Drawing
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$sourcePath = Join-Path $projectRoot 'design\play-store\qr-toleg-ai-generated-feature-graphic-artwork.png'
-$outputPath = Join-Path $projectRoot 'design\play-store\qr-toleg-feature-graphic.png'
+$sourcePath = Join-Path $projectRoot 'media\play-store\qr-toleg-ai-generated-feature-graphic-artwork.png'
+$outputPath = Join-Path $projectRoot 'media\play-store\qr-toleg-feature-graphic.png'
 
 $width = 1024
 $height = 500
