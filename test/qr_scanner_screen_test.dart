@@ -56,6 +56,7 @@ void main() {
   ) async {
     final permissions = _FakeCameraPermissionGateway([CameraAccess.granted]);
     ValueChanged<String>? onCode;
+    final lifecycleEvents = <String>[];
 
     await tester.pumpWidget(
       _app(
@@ -64,6 +65,8 @@ void main() {
           onCode = callback;
           return const ColoredBox(color: Colors.black);
         },
+        stopScanner: () async => lifecycleEvents.add('stop'),
+        startScanner: () async => lifecycleEvents.add('start'),
       ),
     );
     await tester.pump();
@@ -77,6 +80,13 @@ void main() {
       find.text(enL10n.sendingBalanceTo('+993 65 12 34 56')),
       findsOneWidget,
     );
+    expect(lifecycleEvents, ['stop']);
+
+    Navigator.of(tester.element(find.byType(AmountEntryScreen))).pop();
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AmountEntryScreen), findsNothing);
+    expect(lifecycleEvents, ['stop', 'start']);
   });
 
   testWidgets('invalid scans show feedback and fit on a narrow screen', (
@@ -111,11 +121,15 @@ void main() {
 Widget _app(
   CameraPermissionGateway permissions, {
   ScannerBuilder? scannerBuilder,
+  ScannerLifecycleCallback? stopScanner,
+  ScannerLifecycleCallback? startScanner,
 }) {
   return localizedTestApp(
     home: QrScannerScreen(
       permissionGateway: permissions,
       scannerBuilder: scannerBuilder,
+      stopScanner: stopScanner,
+      startScanner: startScanner,
     ),
   );
 }

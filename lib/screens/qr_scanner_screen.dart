@@ -44,16 +44,21 @@ typedef ScannerBuilder = Widget Function(
   BuildContext context,
   ValueChanged<String> onCode,
 );
+typedef ScannerLifecycleCallback = Future<void> Function();
 
 class QrScannerScreen extends StatefulWidget {
   const QrScannerScreen({
     this.permissionGateway = const SystemCameraPermissionGateway(),
     this.scannerBuilder,
+    this.stopScanner,
+    this.startScanner,
     super.key,
   });
 
   final CameraPermissionGateway permissionGateway;
   final ScannerBuilder? scannerBuilder;
+  final ScannerLifecycleCallback? stopScanner;
+  final ScannerLifecycleCallback? startScanner;
 
   @override
   State<QrScannerScreen> createState() => _QrScannerScreenState();
@@ -111,21 +116,28 @@ class _QrScannerScreenState extends State<QrScannerScreen>
     if (!opened) _openingSettings = false;
   }
 
-  void _handleCode(String rawValue) {
+  Future<void> _handleCode(String rawValue) async {
     final invalidQrCodeMessage = AppLocalizations.of(context)
         .invalidQrCodeMessage;
     final recipientPhoneNumber = decodeQrPayload(rawValue);
     if (recipientPhoneNumber != null) {
       if (_isOpeningAmountEntry) return;
       _isOpeningAmountEntry = true;
-      Navigator.of(context)
-          .push(
-            MaterialPageRoute<void>(
-              builder: (context) =>
-                  AmountEntryScreen(recipientPhoneNumber: recipientPhoneNumber),
-            ),
-          )
-          .whenComplete(() => _isOpeningAmountEntry = false);
+      try {
+        await (widget.stopScanner ?? _controller.stop)();
+        if (!mounted) return;
+        await Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) =>
+                AmountEntryScreen(recipientPhoneNumber: recipientPhoneNumber),
+          ),
+        );
+        if (mounted && _access == CameraAccess.granted) {
+          await (widget.startScanner ?? _controller.start)();
+        }
+      } finally {
+        _isOpeningAmountEntry = false;
+      }
       return;
     }
     if (_message == invalidQrCodeMessage) {
