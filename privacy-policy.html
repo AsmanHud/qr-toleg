@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#16794a">
+  <title>Privacy Policy | QR Töleg</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #f7f8f6;
+      --surface: #ffffff;
+      --text: #17201b;
+      --muted: #566159;
+      --accent: #16794a;
+      --border: #dce3de;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #111612;
+        --surface: #181e1a;
+        --text: #edf4ef;
+        --muted: #b3beb6;
+        --accent: #62d696;
+        --border: #354039;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font: 17px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(100% - 32px, 760px);
+      margin: 48px auto;
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    h1, h2 { line-height: 1.25; }
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 7vw, 3rem); }
+    h2 { margin: 36px 0 8px; font-size: 1.3rem; }
+    p, ul { margin: 8px 0 16px; }
+    .updated { color: var(--muted); }
+    a { color: var(--accent); }
+
+    @media (max-width: 560px) {
+      main {
+        width: 100%;
+        margin: 0;
+        padding: 28px 20px 48px;
+        border: 0;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>QR Töleg Privacy Policy</h1>
+    <p class="updated">Effective date: September 16, 2026</p>
+
+    <p>
+      QR Töleg is designed to work without an account, backend, analytics, ads,
+      or cloud storage. This policy explains what information the app uses and
+      how it stays under your control.
+    </p>
+
+    <h2>Information you provide</h2>
+    <p>
+      The app asks for your phone number to create your personal QR code. Your
+      phone number is stored only on your device. QR Töleg does not send it to
+      us or store it on our servers. You can remove it from the app at any time
+      by resetting your phone number in Settings, or by uninstalling the app.
+    </p>
+
+    <h2>Camera access</h2>
+    <p>
+      QR Töleg requests camera access only so you can scan QR Töleg codes. The
+      camera image is processed on your device. The app does not record, retain,
+      or upload camera images or video.
+    </p>
+
+    <h2>QR codes and transfers</h2>
+    <p>
+      A QR Töleg code contains a phone number. When you scan a valid code, the
+      app uses that number to prepare a balance-transfer SMS. QR Töleg opens
+      your device's messaging app with the recipient number, transfer amount,
+      and SMS destination filled in. You review the message and choose whether
+      to send it. Your messaging app and mobile carrier handle the SMS under
+      their own privacy practices.
+    </p>
+
+    <h2>Data collection and sharing</h2>
+    <p>
+      We do not collect, transmit, sell, or share personal information through
+      QR Töleg. The app does not use analytics, advertising, tracking, or
+      third-party data-collection services.
+    </p>
+
+    <h2>Children's privacy</h2>
+    <p>
+      QR Töleg does not knowingly collect personal information from children or
+      from any other users.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this policy if the app's data practices change. The revised
+      policy will be posted on this page with a new effective date.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      For privacy questions, open an issue in the
+      <a href="https://github.com/AsmanHud/qr-toleg/issues">QR Töleg GitHub repository</a>.
+    </p>
+
+    <p>
+      QR Töleg is an independent app and is not affiliated with or endorsed by
+      TMcell.
+    </p>
+  </main>
+</body>
+</html>
