@@ -1,5 +1,5 @@
 Read `PRODUCT.md` before making product or UX decisions; it is the reference for what QR Töleg is intended to build.
-Run `flutter analyze` and `flutter test` before submitting changes.
+Run `flutter analyze` and `flutter test` before submitting changes; these checks can be ommited for trivial or documentation-only changes.
 
 ## Project structure
 
