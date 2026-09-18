@@ -28,7 +28,7 @@ class QrTolegApp extends StatefulWidget {
 
 class _QrTolegAppState extends State<QrTolegApp> {
   static const _defaultLanguageCode = 'tk';
-  static const _supportedLanguageCodes = {'tk', 'en'};
+  static const _supportedLanguageCodes = {'tk', 'en', 'ru'};
 
   String? _phoneNumber;
   late String _languageCode;

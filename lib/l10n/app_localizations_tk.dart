@@ -187,6 +187,9 @@ class AppLocalizationsTk extends AppLocalizations {
   String get englishLanguage => 'English';
 
   @override
+  String get russianLanguage => 'Русский';
+
+  @override
   String get resetPhoneNumberTitle => 'Telefon belgisini täzeden bellemek';
 
   @override

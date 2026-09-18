@@ -52,16 +52,17 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(tkL10n.selectLanguageTitle), findsOneWidget);
 
-    await tester.tap(find.byKey(const Key('language-option-en')));
+    expect(find.text(tkL10n.russianLanguage), findsOneWidget);
+    await tester.tap(find.byKey(const Key('language-option-ru')));
     await tester.pumpAndSettle();
 
-    expect(find.text(enL10n.settingsTitle), findsOneWidget);
-    expect(preferences.getString(QrTolegApp.languagePreferenceKey), 'en');
+    expect(find.text(ruL10n.settingsTitle), findsOneWidget);
+    expect(preferences.getString(QrTolegApp.languagePreferenceKey), 'ru');
 
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pumpWidget(QrTolegApp(preferences: preferences));
 
-    expect(find.text(enL10n.receiveBalanceTitle), findsOneWidget);
+    expect(find.text(ruL10n.receiveBalanceTitle), findsOneWidget);
     expect(find.text(tkL10n.receiveBalanceTitle), findsNothing);
   });
 }

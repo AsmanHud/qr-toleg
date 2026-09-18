@@ -34,6 +34,12 @@ class SettingsScreen extends StatelessWidget {
             label: l10n.englishLanguage,
             selected: languageCode == 'en',
           ),
+          _LanguageOption(
+            key: const Key('language-option-ru'),
+            languageCode: 'ru',
+            label: l10n.russianLanguage,
+            selected: languageCode == 'ru',
+          ),
         ],
       ),
     );
@@ -112,11 +118,11 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       leading: const Icon(Icons.language_rounded),
                       title: Text(l10n.languageTitle),
-                      subtitle: Text(
-                        languageCode == 'tk'
-                            ? l10n.turkmenLanguage
-                            : l10n.englishLanguage,
-                      ),
+                      subtitle: Text(switch (languageCode) {
+                        'tk' => l10n.turkmenLanguage,
+                        'ru' => l10n.russianLanguage,
+                        _ => l10n.englishLanguage,
+                      }),
                       trailing: const Icon(Icons.chevron_right_rounded),
                       onTap: () => _selectLanguage(context),
                     ),

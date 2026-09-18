@@ -6,6 +6,7 @@ Run `flutter analyze` and `flutter test` before submitting changes; these checks
 - `lib/main.dart` - Application entry point and top-level app configuration.
 - `lib/l10n/app_en.arb` - English source strings for user-facing UI copy.
 - `lib/l10n/app_tk.arb` - Turkmen source strings and the app's default UI language.
+- `lib/l10n/app_ru.arb` - Russian source strings for user-facing UI copy.
 - `lib/l10n/app_localizations*.dart` - Flutter-generated localization classes; do not edit these by hand.
 - `lib/l10n/turkmen_framework_localizations.dart` - English fallback for Flutter framework labels that do not natively support Turkmen.
 - `lib/qr_payload.dart` - Shared encoding and validation for versioned QR Töleg payloads.

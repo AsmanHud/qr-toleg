@@ -186,6 +186,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get englishLanguage => 'English';
 
   @override
+  String get russianLanguage => 'Русский';
+
+  @override
   String get resetPhoneNumberTitle => 'Reset phone number';
 
   @override
